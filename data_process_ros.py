@@ -8,18 +8,22 @@ def main():
     pub_num = sys.argv[3]
     size = sys.argv[4]
 
-    payloads = ['8', '80', '200', '500', '1000', '2000']
+    if size == 'small':
+        payloads = ['8', '80', '200', '500', '1000', '2000']
+    else:
+        payloads = ['1000000', '2000000', '10000000', '20000000', '30000000', '50000000']
+
     np_data = np.zeros((6,500),dtype=np.double)
 
     for payload, i in zip(payloads, range(6)):
-        filename = 'ros/output3/N='+sub_num+'_M='+pub_num+'_fre='+fre+'_small/'+'N='+sub_num+'_M='\
+        filename = 'ros/output/N='+sub_num+'_M='+pub_num+'_fre='+fre+'_'+size+'/'+'N='+sub_num+'_M='\
             +pub_num+'_fre='+fre+'_payload='+payload+'.csv'
         with open(filename, 'r') as f:
             reader = csv.reader(f)
             data = list(reader)
         np_data[i] = np.max(np.array(data, dtype=int), axis=0)
 
-    filename = 'ros/output3/1v'+sub_num+'_x'+pub_num+'_'+size+'_'+fre+'hz'
+    filename = 'ros/output/1v'+sub_num+'_x'+pub_num+'_'+size+'_'+fre+'hz'
     np.save(filename,np_data)
     
 
