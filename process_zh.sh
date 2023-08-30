@@ -1,26 +1,19 @@
 #!/bin/bash
 
-# python3 data_process_mqtt.py 100 1 1 small
-# python3 data_process_mqtt.py 100 5 1 small
-# python3 data_process_mqtt.py 100 10 1 small
-# python3 data_process_mqtt.py 100 5 5 small
-# python3 data_process_mqtt.py 100 5 10 small
-# python3 cpu_mem_process_mqtt.py 100 1 1 small
-# python3 cpu_mem_process_mqtt.py 100 5 1 small
-# python3 cpu_mem_process_mqtt.py 100 10 1 small
-# python3 cpu_mem_process_mqtt.py 100 5 5 small
-# python3 cpu_mem_process_mqtt.py 100 5 10 small
+for size in large small
+do
+    for hz in 100 50 30 10
+    do
+        for m_max in 1 2 5 10
+        do
+            for n_max in 1 2 5 10 
+            do
+                python3 data_process_mqtt.py $hz $n $m $size
+                python3 cpu_mem_process_mqtt.py $hz $n $m $size
 
-# python3 data_process_ros.py 100 1 1 small
-# python3 data_process_ros.py 100 5 1 small
-# python3 data_process_ros.py 100 10 1 small
-# python3 data_process_ros.py 100 5 5 small
-# python3 data_process_ros.py 100 5 10 small
-# python3 data_process_ros.py 1 1 1 large
-# python3 data_process_ros.py 1 5 1 large
-python3 data_process_ros.py 1 10 1 large
-# python3 cpu_mem_process_ros.py 100 1 1 small
-# python3 cpu_mem_process_ros.py 100 5 1 small
-# python3 cpu_mem_process_ros.py 100 10 1 small
-# python3 cpu_mem_process_ros.py 100 5 5 small
-# python3 cpu_mem_process_ros.py 100 5 10 small
+                python3 data_process_ros.py $hz $n $m $size
+                python3 cpu_mem_process_ros.py $hz $n $m $size
+            done
+        done
+    done
+done

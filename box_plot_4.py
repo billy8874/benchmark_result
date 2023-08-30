@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 def main():
     per_lat = (100 - 95) * 5
     xlocs = np.array([1, 2, 3, 4, 5, 6], dtype=np.int32)
-    xlable = np.array(['8B', '80B', '200B', '500B', '1000B', '2000B'], dtype=str)
-    # xlable = np.array(['1MB', '5MB', '10MB', '20MB', '30MB', '50MB'], dtype=str)
+    # xlable = np.array(['8B', '80B', '200B', '500B', '1000B', '2000B'], dtype=str)
+    xlable = np.array(['1MB', '5MB', '10MB', '20MB', '30MB', '50MB'], dtype=str)
     
     # Load Data 1
     x1 = np.load('result/latency/1v1_large_1hz.npy')
@@ -17,7 +17,7 @@ def main():
     x1 = xlocs
 
     # Load Data 2
-    x2 = np.load('mqtt/output2/1v1_x1_small_100hz.npy')
+    x2 = np.load('mqtt/output/1v1_x1_large_1hz.npy')
     data2 = []
     for i in range(x2.shape[0]):
         data2.append(np.sort(x2[i,:])[:-per_lat]/1000)
@@ -25,7 +25,7 @@ def main():
     x2 = xlocs
 
     # Load Data 3
-    x3 = np.load('ros/output/1v1_x1_small_1hz.npy')
+    x3 = np.load('ros/output/1v1_x1_large_1hz.npy')
     data3 = []
     for i in range(x3.shape[0]):
         data3.append(np.sort(x3[i,:])[:-per_lat]/1000)
@@ -33,7 +33,7 @@ def main():
     x3 = xlocs
 
     # Load Data 4
-    x4 = np.load('result/latency/1v5_small_100hz.npy')
+    x4 = np.load('zmq/latency/1v1_x1_large_1hz.npy')
     data4 = []
     for i in range(x4.shape[0]):
         data4.append(np.sort(x4[i,:])[:-per_lat]/1000)
@@ -59,8 +59,8 @@ def main():
     
     # Plot Data2
     c2='blue'
-    plt.plot(x2, y2_mean, c2)
-    box_pos2 = x2 - np.array([box_wid/2*1.2], dtype=np.float64)
+    plt.plot(x2[0:1], y2_mean, c2)
+    box_pos2 = x2[0:1] - np.array([box_wid/2*1.2], dtype=np.float64)
     bp2 = ax.boxplot(data2, positions=box_pos2 ,showfliers=True, widths=box_wid, whis=per, patch_artist=True,
             boxprops=dict(facecolor=(0,0,1,0.1), color=c2),
             capprops=dict(color=c2),
@@ -81,8 +81,8 @@ def main():
     
     # Plot Data4
     c4='red'
-    plt.plot(x4, y4_mean, c4)
-    box_pos4 = x4 + 3*np.array([box_wid/2*1.2], dtype=np.float64)
+    plt.plot(x4[:-1], y4_mean, c4)
+    box_pos4 = x4[:-1] + 3*np.array([box_wid/2*1.2], dtype=np.float64)
     bp4 = ax.boxplot(data4, positions=box_pos4 ,showfliers=True, widths=box_wid, whis=per, patch_artist=True,
             boxprops=dict(facecolor=(1,0,0,0.1), color=c4),
             capprops=dict(color=c4),
@@ -92,12 +92,12 @@ def main():
     
 
     plt.xticks(xlocs, xlable)
-    ax.legend([bp1["boxes"][0], bp2["boxes"][0], bp3["boxes"][0], bp4["boxes"][0]], ['1hz', '10hz', '50hz', '100hz'], loc='upper left')
+    ax.legend([bp1["boxes"][0], bp2["boxes"][0], bp3["boxes"][0], bp4["boxes"][0]], ['ROS2', 'MQTT', 'ROS', 'ZeroMQ'], loc='upper left')
     plt.xlabel('Payload(MB)')
     plt.ylabel('Latency(ms)')
     # plt.xlim((-100,2100))
     # plt.ylim((0,3000))
-    plt.title('ROS2 (1v5)')
+    plt.title('1v1, 1Hz')
     plt.show()   
     
 

@@ -8,11 +8,15 @@ def main():
     pub_num = sys.argv[3]
     size = sys.argv[4]
 
-    payloads = ['8', '80', '200', '500', '1000', '2000']
-    np_data = np.zeros((6,500),dtype=np.double)
+    if size == 'small':
+        payloads = ['8', '80', '200', '500', '1000', '2000']
+    else:
+        payloads = ['1000000']
+    
+    np_data = np.zeros((1,500),dtype=np.double)
 
-    for payload, i in zip(payloads, range(6)):
-        filename = 'mqtt/output2/N='+sub_num+'_M='+pub_num+'_st='+fre+'_small/'+'N='+sub_num+'_M='\
+    for payload, i in zip(payloads, range(1)):
+        filename = 'mqtt/output/N='+sub_num+'_M='+pub_num+'_st='+fre+'_'+size+'/'+'N='+sub_num+'_M='\
             +pub_num+'_st='+fre+'_payload='+payload+'.csv'
         with open(filename, 'r') as f:
             reader = csv.reader(f)
