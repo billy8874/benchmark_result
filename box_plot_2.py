@@ -8,7 +8,7 @@ def main():
     xlable = np.array(['8B', '80B', '200B', '500B', '1000B', '2000B'], dtype=str)
     # xlable = np.array(['1MB', '5MB', '10MB', '20MB', '30MB', '50MB'], dtype=str)
     # Load Data 1
-    x1 = np.load('mqtt/output/1v1_x1_small_100hz.npy')
+    x1 = np.load('ros2/latency/1v1_x1_small_30hz.npy')
     data1 = []
     for i in range(x1.shape[0]):
         data1.append(np.sort(x1[i,:])[:-per_lat]/1000)
@@ -16,7 +16,7 @@ def main():
     x1 = xlocs
 
     # Load Data 2
-    x2 = np.load('ros/output/1v1_x1_small_100hz.npy')
+    x2 = np.load('ros2/latency/1v10_x1_small_30hz.npy')
     data2 = []
     for i in range(x2.shape[0]):
         data2.append(np.sort(x2[i,:])[:-per_lat]/1000)

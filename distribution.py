@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def main():
     xlocs = np.array([1, 2, 3, 4, 5, 6], dtype=np.int32)
     # Load Data 1
-    x1 = np.load('result/latency/1v10_small_30hz.npy')
+    x1 = np.load('ros2/latency/1v10_small_30hz.npy')
     data1 = []
     for i in range(x1.shape[0]):
         data1.append(x1[i,:])

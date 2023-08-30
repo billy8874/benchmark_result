@@ -17,8 +17,7 @@ def main():
         payloads = ['8', '80', '200', '500', '1000', '2000']
     
     for payload, i in zip(payloads, range(len(payloads))):
-        filename = 'mqtt/cpu_mem/N='+sub_num+'_M='+pub_num+'_st='+fre+'_small/'+'N='+sub_num+'_M='\
-            +pub_num+'_st='+fre+'_payload='+payload+'.csv'
+        filename = 'mqtt/cpu_mem/tmp/N='+sub_num+'_M='+pub_num+'_st='+fre+'_payload='+payload+'.csv'
         with open(filename, 'r') as f:
             reader = csv.reader(f)
             data = list(reader)
